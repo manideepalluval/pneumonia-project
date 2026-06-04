@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PneumoScan AI — Chest X-Ray Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="bg-grid"></div>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="nav-brand">
+        <div class="nav-logo">
+            <i class="fas fa-lungs"></i>
+        </div>
+        <span class="nav-title">PneumoScan <span class="ai-tag">AI</span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#predict" class="nav-link">Diagnose</a></li>
+        <li><a href="#how" class="nav-link">How It Works</a></li>
+    </ul>
+    <a href="#predict" class="nav-cta">Start Analysis</a>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            AI-Powered Medical Imaging
+        </div>
+        <h1 class="hero-title">
+            Detect Pneumonia<br>
+            <span class="gradient-text">with Precision AI</span>
+        </h1>
+        <p class="hero-desc">
+            Upload a chest X-ray and receive instant AI-driven analysis with 
+            a comprehensive clinical report — designed to support medical professionals.
+        </p>
+        <div class="hero-actions">
+            <a href="#predict" class="btn-primary">
+                <i class="fas fa-microscope"></i>
+                Analyze X-Ray
+            </a>
+            <a href="#about" class="btn-ghost">
+                Learn More <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-num">98.2%</span>
+                <span class="stat-label">Accuracy</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">&lt;2s</span>
+                <span class="stat-label">Analysis Time</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">AI</span>
+                <span class="stat-label">Powered Report</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="xray-frame">
+            <div class="xray-inner">
+                <i class="fas fa-lungs xray-icon"></i>
+                <div class="scan-line"></div>
+                <div class="xray-dots">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="frame-label">CHEST X-RAY ANALYSIS</div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about">
+    <div class="section-header">
+        <p class="section-tag">About the System</p>
+        <h2 class="section-title">Medical AI You Can Trust</h2>
+        <p class="section-desc">Built with deep learning to assist clinicians in early pneumonia detection from chest radiographs.</p>
+    </div>
+    <div class="about-grid">
+        <div class="about-card" data-delay="0">
+            <div class="card-icon red">
+                <i class="fas fa-virus"></i>
+            </div>
+            <h3>The Challenge</h3>
+            <p>Pneumonia causes over 2.5 million deaths annually. Early and accurate detection from chest X-rays is critical but requires trained radiologists.</p>
+        </div>
+        <div class="about-card" data-delay="100">
+            <div class="card-icon blue">
+                <i class="fas fa-brain"></i>
+            </div>
+            <h3>Our Approach</h3>
+            <p>A convolutional neural network trained on thousands of labeled chest X-rays, achieving clinical-grade accuracy in seconds.</p>
+        </div>
+        <div class="about-card" data-delay="200">
+            <div class="card-icon green">
+                <i class="fas fa-file-medical"></i>
+            </div>
+            <h3>AI Reports</h3>
+            <p>Beyond prediction — generate a structured clinical report powered by a large language model with findings and recommendations.</p>
+        </div>
+        <div class="about-card" data-delay="300">
+            <div class="card-icon purple">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <h3>Clinical Support</h3>
+            <p>Designed as a decision-support tool for medical professionals, not a replacement. All results should be reviewed by a qualified physician.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Predict Section -->
+<section id="predict" class="predict">
+    <div class="section-header">
+        <p class="section-tag">AI Diagnosis</p>
+        <h2 class="section-title">Upload & Analyze</h2>
+        <p class="section-desc">Drop a chest X-ray image to receive an instant AI prediction and generate a full clinical report.</p>
+    </div>
+
+    <div class="predict-workspace">
+
+        <!-- Upload Panel -->
+        <div class="upload-panel" id="uploadPanel">
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-icon">
+                    <i class="fas fa-cloud-arrow-up"></i>
+                </div>
+                <p class="drop-title">Drop X-ray image here</p>
+                <p class="drop-sub">or click to browse files</p>
+                <p class="drop-format">Supports: JPG, PNG, DICOM</p>
+                <input type="file" id="imageInput" accept="image/*" hidden>
+            </div>
+            <div class="preview-zone" id="previewZone" style="display:none;">
+                <img id="previewImg" src="" alt="X-Ray Preview">
+                <button class="clear-btn" id="clearBtn"><i class="fas fa-times"></i> Remove</button>
+            </div>
+            <button class="analyze-btn" id="analyzeBtn" onclick="uploadImage()">
+                <i class="fas fa-magnifying-glass-chart"></i>
+                Run Analysis
+            </button>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="results-panel" id="resultsPanel">
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loadingState" style="display:none;">
+                <div class="pulse-ring"></div>
+                <div class="loading-icon"><i class="fas fa-lungs"></i></div>
+                <p class="loading-text">Analyzing X-ray...</p>
+                <div class="loading-bar"><div class="loading-fill" id="loadingFill"></div></div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-x-ray empty-icon"></i>
+                <p>Results will appear here after analysis</p>
+            </div>
+
+            <!-- Result Content -->
+            <div class="result-content" id="resultContent" style="display:none;">
+
+                <div class="result-header">
+                    <h3>Analysis Complete</h3>
+                    <span class="result-time" id="resultTime"></span>
+                </div>
+
+                <div class="result-verdict" id="resultVerdict">
+                    <!-- Injected by JS -->
+                </div>
+
+                <div class="result-metrics">
+                    <div class="metric">
+                        <span class="metric-label">Confidence</span>
+                        <div class="metric-bar">
+                            <div class="metric-fill" id="confidenceFill"></div>
+                        </div>
+                        <span class="metric-value" id="confidenceValue"></span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Risk Level</span>
+                        <span class="risk-badge" id="riskBadge"></span>
+                    </div>
+                </div>
+
+                <div class="result-disclaimer">
+                    <i class="fas fa-circle-info"></i>
+                    This result is AI-generated and should be reviewed by a medical professional.
+                </div>
+
+                <!-- Generate Report Button -->
+                <button class="report-btn" id="reportBtn" onclick="generateReport()">
+                    <i class="fas fa-file-waveform"></i>
+                    Generate Clinical Report
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Report Section -->
+    <div class="report-section" id="reportSection" style="display:none;">
+        <div class="report-header">
+            <div class="report-title-row">
+                <div class="report-icon"><i class="fas fa-file-medical"></i></div>
+                <div>
+                    <h3>AI Clinical Report</h3>
+                    <p class="report-subtitle">Generated by Claude AI • <span id="reportDate"></span></p>
+                </div>
+                <div class="report-actions">
+                    <button onclick="printReport()" class="action-btn"><i class="fas fa-print"></i> Print</button>
+                    <button onclick="copyReport()" class="action-btn"><i class="fas fa-copy"></i> Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-loading" id="reportLoading" style="display:none;">
+            <div class="report-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <p>Generating clinical report with AI...</p>
+        </div>
+
+        <div class="report-body" id="reportBody">
+            <!-- Report content injected here -->
+        </div>
+    </div>
+
+</section>
+
+<!-- How It Works -->
+<section id="how" class="how">
+    <div class="section-header">
+        <p class="section-tag">Process</p>
+        <h2 class="section-title">How It Works</h2>
+    </div>
+    <div class="steps-container">
+        <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-icon"><i class="fas fa-upload"></i></div>
+            <h3>Upload X-Ray</h3>
+            <p>Drag and drop or browse to select a chest X-ray image in JPG or PNG format.</p>
+        </div>
+        <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-icon"><i class="fas fa-microchip"></i></div>
+            <h3>AI Processing</h3>
+            <p>Our deep learning model analyzes the image, detecting patterns associated with pneumonia.</p>
+        </div>
+        <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-icon"><i class="fas fa-chart-pie"></i></div>
+            <h3>Get Prediction</h3>
+            <p>Receive a clear verdict — Pneumonia Detected or Normal — with confidence score.</p>
+        </div>
+        <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-card">
+            <div class="step-num">04</div>
+            <div class="step-icon"><i class="fas fa-file-lines"></i></div>
+            <h3>Clinical Report</h3>
+            <p>Generate a full AI-written medical report with findings, assessment and next steps.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="nav-logo small"><i class="fas fa-lungs"></i></div>
+            <span>PneumoScan AI</span>
+        </div>
+        <p class="footer-note">
+            ⚕️ For clinical decision support only. Not a substitute for professional medical diagnosis.
+        </p>
+        <p class="footer-copy">© 2026 PneumoScan AI. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
